@@ -38,6 +38,8 @@ func TestAccLibvirtDomain_Basic(t *testing.T) {
 					resource.TestCheckResourceAttr(
 						"libvirt_domain."+randomResourceName, "memory", "512"),
 					resource.TestCheckResourceAttr(
+						"libvirt_domain."+randomResourceName, "currentmemory", "512"),
+					resource.TestCheckResourceAttr(
 						"libvirt_domain."+randomResourceName, "vcpu", "1"),
 				),
 			},

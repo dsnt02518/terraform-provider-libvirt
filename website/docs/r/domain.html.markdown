@@ -34,6 +34,11 @@ The following arguments are supported:
   will be created.
 * `memory` - (Optional) The amount of memory in MiB. If not specified the domain
   will be created with 512 MiB of memory be used.
+* `currentmemory` - (Optional) The amount of memory in MiB to allocate to the
+  guest at creation, must be <= `memory`. If omitted libvirt will use the value
+  of `memory`. This allows creating domains with less than the full allocation 
+  at boot time - ballooning can be used later to increase up to the value of 
+  `memory`.
 * `running` - (Optional) Use `false` to turn off the instance. If not specified,
   true is assumed and the instance, if stopped, will be started at next apply.
 * `disk` - (Optional) An array of one or more disks to attach to the domain. The

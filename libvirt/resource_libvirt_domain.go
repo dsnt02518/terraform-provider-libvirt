@@ -67,6 +67,12 @@ func resourceLibvirtDomain() *schema.Resource {
 				Default:  512,
 				ForceNew: true,
 			},
+			"currentmemory": {
+				Type:     schema.TypeInt,
+				Optional: true,
+				Default:  512,
+				ForceNew: true,
+			},
 			"firmware": {
 				Type:     schema.TypeString,
 				Optional: true,
@@ -459,6 +465,10 @@ func resourceLibvirtDomainCreate(d *schema.ResourceData, meta interface{}) error
 		Value: uint(d.Get("memory").(int)),
 		Unit:  "MiB",
 	}
+	domainDef.CurrentMemory = &libvirtxml.DomainCurrentMemory{
+		Value: uint(d.Get("currentmemory").(int)),
+		Unit:  "MiB",
+	}
 	domainDef.VCPU = &libvirtxml.DomainVCPU{
 		Value: d.Get("vcpu").(int),
 	}
@@ -765,6 +775,7 @@ func resourceLibvirtDomainRead(d *schema.ResourceData, meta interface{}) error {
 	d.Set("description", domainDef.Description)
 	d.Set("vcpu", domainDef.VCPU)
 	d.Set("memory", domainDef.Memory)
+	d.Set("currentmemory", domainDef.CurrentMemory)
 	d.Set("firmware", domainDef.OS.Loader)
 	d.Set("nvram", domainDef.OS.NVRam)
 	d.Set("cpu", domainDef.CPU)
